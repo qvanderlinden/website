@@ -1,0 +1,121 @@
+---
+import Base from "../layouts/Base.astro";
+import Field from "../components/Field.astro";
+import Input from "../components/Input.astro";
+import Textarea from "../components/Textarea.astro";
+import Select from "../components/Select.astro";
+import Checkbox from "../components/Checkbox.astro";
+import Button from "../components/Button.astro";
+import Card from "../components/Card.astro";
+import Callout from "../components/Callout.astro";
+import Toast from "../components/Toast.astro";
+import Icon from "../components/Icon.astro";
+
+const kindOptions = [
+  "web app (next.js / react)",
+  "data pipeline / automation",
+  "ml / ai engineering",
+  "backend / devops",
+  "scoping only",
+  "something else",
+];
+const budgetOptions = ["under €10k", "€10k – €30k", "€30k – €75k", "above €75k"];
+---
+
+<Base
+  active="contact"
+  title="contact — quentin vanderlinden"
+  description="Tell me what's not working. A paragraph is enough to start — I reply within two working days."
+>
+  <div class="wrap" style="padding-top:var(--space-16)">
+    <div class="grid2" style="align-items:start;gap:var(--space-16)">
+      <div>
+        <span class="eyebrow">get in touch</span>
+        <h1 style="font:var(--type-display);font-size:clamp(30px,7vw,49px);margin-top:12px;max-width:14ch">
+          Tell me what's <span class="em">not working</span>
+        </h1>
+        <p class="lede">
+          A paragraph is enough to start. I reply within two working days, and I'll
+          say no quickly if it isn't a fit.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:var(--space-10);font:var(--type-body-sm)">
+          <span style="display:flex;gap:10px;align-items:center">
+            <Icon name="mail" size={16} color="var(--text-accent)" /> contact@quentinvanderlinden.dev
+          </span>
+          <span style="display:flex;gap:10px;align-items:center">
+            <Icon name="map-pin" size={16} color="var(--text-accent)" /> Gesves, Belgium — remote across CET
+          </span>
+          <span style="display:flex;gap:10px;align-items:center">
+            <Icon name="calendar" size={16} color="var(--text-accent)" /> Open to new projects
+          </span>
+        </div>
+        <Callout tone="info" title="Rates" class="contact-rates">
+          Day rate for build work, fixed price for two-week scoping. Both on the
+          first call, no dance.
+        </Callout>
+      </div>
+
+      <Card title="Project enquiry" subtitle="Nothing here is stored anywhere but my inbox.">
+        <form id="enquiry" style="display:flex;flex-direction:column;gap:var(--space-4)">
+          <div class="form-row">
+            <Field label="Name" htmlFor="n"><Input id="n" name="name" placeholder="Marie Dubois" /></Field>
+            <Field label="Email" htmlFor="e"><Input id="e" name="email" type="email" placeholder="marie@company.be" /></Field>
+          </div>
+          <Field label="What kind of work?" htmlFor="k">
+            <Select id="k" name="kind" placeholder="Pick the closest" options={kindOptions} />
+          </Field>
+          <Field label="Budget range" htmlFor="b" optional>
+            <Select id="b" name="budget" placeholder="Prefer not to say" options={budgetOptions} />
+          </Field>
+          <Field label="The short version" htmlFor="m" hint="What's broken, and what would 'fixed' look like?">
+            <Textarea id="m" name="message" rows={5} placeholder="We ingest meter readings nightly and…" />
+          </Field>
+          <Checkbox name="checklist" label="Send me the scoping checklist too" description="One email, no list." />
+          <div style="display:flex;gap:12px;align-items:center">
+            <Button type="submit" iconRight="send">Send enquiry</Button>
+            <span style="font:var(--type-body-sm);color:var(--text-muted)">
+              or just <a href="mailto:contact@quentinvanderlinden.dev">email me</a>
+            </span>
+          </div>
+        </form>
+      </Card>
+    </div>
+  </div>
+
+  <div id="toast-slot" style="position:fixed;right:24px;bottom:24px;z-index:50;display:none">
+    <Toast tone="positive" message="Enquiry sent. I'll reply within two working days." />
+  </div>
+</Base>
+
+<style>
+  .contact-rates {
+    margin-top: var(--space-8);
+    max-width: 420px;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+  @media (max-width: 480px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  // The source kit confirmed submit with a toast. This keeps that behaviour;
+  // wire the form to a real endpoint (Formspree, a Worker, mailto) when ready.
+  const form = document.getElementById("enquiry") as HTMLFormElement | null;
+  const slot = document.getElementById("toast-slot");
+
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (slot) slot.style.display = "";
+  });
+
+  slot?.querySelector("[data-toast-close]")?.addEventListener("click", () => {
+    slot.style.display = "none";
+  });
+</script>

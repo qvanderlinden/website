@@ -1,0 +1,47 @@
+---
+/** Field — mirrors the design system Field (label + control + hint/error). */
+import Icon from "./Icon.astro";
+
+interface Props {
+  label?: string;
+  hint?: string;
+  error?: string;
+  optional?: boolean;
+  htmlFor?: string;
+  layout?: "stacked" | "horizontal";
+  class?: string;
+  [key: string]: unknown;
+}
+const {
+  label,
+  hint,
+  error,
+  optional = false,
+  htmlFor,
+  layout = "stacked",
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+<div
+  class:list={["qv-field", layout === "horizontal" ? "qv-field--horizontal" : "", className]}
+  {...rest}
+>
+  {
+    label && (
+      <label class="qv-field__label" for={htmlFor}>
+        {label}
+        {optional && <span class="qv-field__optional">optional</span>}
+      </label>
+    )
+  }
+  <slot />
+  {
+    error ? (
+      <span class="qv-field__error"><Icon name="alert-circle" size={13} />{error}</span>
+    ) : (
+      hint && <span class="qv-field__hint">{hint}</span>
+    )
+  }
+</div>

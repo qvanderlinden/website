@@ -1,0 +1,76 @@
+---
+/**
+ * Header — the site top bar (design system TopBar composition). Brand links home,
+ * nav links to the real routes, and a primary action points at /contact.
+ * `active` highlights the current section. On narrow viewports the links collapse
+ * behind a hamburger toggle (see .qv-topbar mobile rules + the script below).
+ */
+import Logo from "./Logo.astro";
+import Button from "./Button.astro";
+import Icon from "./Icon.astro";
+
+interface Props {
+  active?: "home" | "work" | "writing" | "contact";
+}
+const { active } = Astro.props;
+
+const links = [
+  { value: "work", label: "work", href: "/work" },
+  { value: "writing", label: "writing", href: "/writing" },
+  { value: "contact", label: "contact", href: "/contact" },
+];
+---
+
+<header class="qv-topbar">
+  <a href="/" style="text-decoration:none" aria-label="Home">
+    <Logo variant="horizontal" cell={7} />
+  </a>
+  <button
+    class="qv-topbar__toggle"
+    type="button"
+    aria-label="Toggle menu"
+    aria-expanded="false"
+    aria-controls="site-nav"
+  >
+    <span class="qv-topbar__ico-open"><Icon name="menu" size={22} /></span>
+    <span class="qv-topbar__ico-close"><Icon name="x" size={22} /></span>
+  </button>
+  <nav class="qv-topbar__links" id="site-nav">
+    {
+      links.map((l) => (
+        <a
+          href={l.href}
+          class="qv-topbar__link"
+          aria-current={active === l.value ? "page" : undefined}
+        >
+          {l.label}
+        </a>
+      ))
+    }
+    <Button size="sm" href="/contact">start a project</Button>
+  </nav>
+</header>
+
+<script>
+  // Mobile menu toggle. The header is rendered on every page, so this runs once
+  // per load; the menu resets on navigation.
+  const header = document.querySelector(".qv-topbar");
+  const toggle = header?.querySelector<HTMLButtonElement>(".qv-topbar__toggle");
+
+  function setOpen(open: boolean) {
+    header?.classList.toggle("is-open", open);
+    toggle?.setAttribute("aria-expanded", String(open));
+  }
+
+  toggle?.addEventListener("click", () => {
+    setOpen(!header?.classList.contains("is-open"));
+  });
+
+  // Close when a nav link (including the CTA) is tapped, or on Escape.
+  header?.querySelectorAll(".qv-topbar__links a").forEach((a) =>
+    a.addEventListener("click", () => setOpen(false)),
+  );
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") setOpen(false);
+  });
+</script>

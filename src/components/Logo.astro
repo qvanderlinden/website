@@ -1,0 +1,109 @@
+---
+/**
+ * Logo — the QV pixel-grid monogram, drawn from the canonical 13x9 cell map.
+ * Ported from the design system's Logo.jsx (deterministic — renders at build).
+ */
+interface Props {
+  variant?: "mark" | "horizontal" | "vertical";
+  cell?: number;
+  tone?: "ink" | "cream" | "clay";
+  accent?: string;
+  showTagline?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  variant = "mark",
+  cell = 8,
+  tone = "ink",
+  accent = "var(--clay-500)",
+  showTagline = false,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const GRID = [
+  "ooooooooooooo",
+  "ooLLLooLoooLo",
+  "oLoooLoLdooLo",
+  "oLdooLoLddoLo",
+  "oLddoLoLoddLo",
+  "oLoAdLoLoodLo",
+  "ooLLAdooLoLdo",
+  "oooooAoooLooo",
+  "ooooooooooooo",
+];
+
+const cellOpacity = (c: string, i: number, j: number): number =>
+  c === "L" || c === "A"
+    ? 1
+    : c === "d"
+      ? [0.13, 0.19, 0.24][(i * 5 + j * 3) % 3]
+      : [0.045, 0.07, 0.1][(i * 7 + j * 4) % 3];
+
+const lit =
+  tone === "cream"
+    ? "var(--cream-100)"
+    : tone === "clay"
+      ? "var(--clay-500)"
+      : "var(--ink-900)";
+const gap = Math.max(1, Math.round((cell * 4) / 15));
+const pitch = cell + gap;
+const w = GRID[0].length * pitch - gap;
+const h = GRID.length * pitch - gap;
+
+const rects: { x: number; y: number; fill: string; opacity: number }[] = [];
+GRID.forEach((row, j) =>
+  row.split("").forEach((c, i) => {
+    rects.push({
+      x: i * pitch,
+      y: j * pitch,
+      fill: c === "A" ? accent : lit,
+      opacity: cellOpacity(c, i, j),
+    });
+  }),
+);
+
+const wordSize = Math.round(cell * 1.9);
+const wrapStyle =
+  variant === "vertical" ? "flex-direction:column;gap:var(--space-4)" : undefined;
+---
+
+<span class:list={["qv-logo", className]} style={wrapStyle} {...rest}>
+  <svg
+    class="qv-logo__mark"
+    width={w}
+    height={h}
+    viewBox={`0 0 ${w} ${h}`}
+    role="img"
+    aria-label="Quentin Vanderlinden"
+  >
+    {
+      rects.map((r) => (
+        <rect
+          x={r.x}
+          y={r.y}
+          width={cell}
+          height={cell}
+          fill={r.fill}
+          opacity={r.opacity}
+        />
+      ))
+    }
+  </svg>
+  {
+    variant !== "mark" && (
+      <span>
+        <span class="qv-logo__word" style={`font-size:${wordSize}px;color:${lit}`}>
+          quentin vanderlinden
+        </span>
+        {showTagline && (
+          <span class="qv-logo__sub" style="display:block">
+            software engineer
+          </span>
+        )}
+      </span>
+    )
+  }
+</span>

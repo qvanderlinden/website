@@ -1,0 +1,31 @@
+---
+/**
+ * Toast — mirrors the design system Toast. Rendered hidden and revealed by a
+ * small client script (e.g. on form submit). Include a dismiss button by default.
+ */
+import Icon from "./Icon.astro";
+
+interface Props {
+  tone?: "neutral" | "positive" | "negative" | "accent";
+  message: string;
+  class?: string;
+  id?: string;
+  [key: string]: unknown;
+}
+const { tone = "neutral", message, class: className, id, ...rest } = Astro.props;
+
+const ICONS: Record<string, string> = {
+  neutral: "info",
+  positive: "check-circle",
+  negative: "alert-circle",
+  accent: "sparkles",
+};
+---
+
+<div class:list={["qv-toast", `qv-toast--${tone}`, className]} role="status" id={id} {...rest}>
+  <span class="qv-toast__icon"><Icon name={ICONS[tone] || "info"} size={15} /></span>
+  <span>{message}</span>
+  <button class="qv-toast__close" type="button" aria-label="Dismiss" data-toast-close>
+    <Icon name="x" size={14} />
+  </button>
+</div>

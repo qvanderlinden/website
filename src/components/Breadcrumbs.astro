@@ -1,0 +1,24 @@
+---
+/** Breadcrumbs — mirrors the design system Breadcrumbs. */
+interface Props {
+  items?: { label: string; href?: string }[];
+  class?: string;
+  [key: string]: unknown;
+}
+const { items = [], class: className, ...rest } = Astro.props;
+---
+
+<nav class:list={["qv-crumbs", className]} aria-label="Breadcrumb" {...rest}>
+  {
+    items.map((it, i) => (
+      <>
+        {i > 0 && <span class="qv-crumbs__sep">/</span>}
+        {it.href && i < items.length - 1 ? (
+          <a href={it.href}>{it.label}</a>
+        ) : (
+          <span class="qv-crumbs__current">{it.label}</span>
+        )}
+      </>
+    ))
+  }
+</nav>

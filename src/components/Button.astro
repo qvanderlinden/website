@@ -1,0 +1,47 @@
+---
+/**
+ * Button — mirrors the design system Button. Renders an <a> when `href` is set
+ * (the marketing site navigates rather than dispatching state), else a <button>.
+ */
+import Icon from "./Icon.astro";
+
+interface Props {
+  variant?: "primary" | "secondary" | "ghost" | "inverse" | "danger" | "link";
+  size?: "sm" | "md" | "lg";
+  iconLeft?: string;
+  iconRight?: string;
+  block?: boolean;
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  variant = "primary",
+  size = "md",
+  iconLeft,
+  iconRight,
+  block = false,
+  href,
+  type = "button",
+  class: className,
+  ...rest
+} = Astro.props;
+
+const cls = [
+  "qv-btn",
+  `qv-btn--${variant}`,
+  `qv-btn--${size}`,
+  block ? "qv-btn--block" : "",
+  className,
+];
+const glyph = size === "lg" ? 18 : size === "sm" ? 14 : 16;
+const Tag = href ? "a" : "button";
+---
+
+<Tag class:list={cls} href={href} type={href ? undefined : type} {...rest}>
+  {iconLeft && <Icon name={iconLeft} size={glyph} />}
+  <slot />
+  {iconRight && <Icon name={iconRight} size={glyph} />}
+</Tag>

@@ -1,0 +1,52 @@
+---
+/** Input — mirrors the design system Input, with optional icon/prefix/suffix affixes. */
+import Icon from "./Icon.astro";
+
+interface Props {
+  size?: "sm" | "md" | "lg";
+  invalid?: boolean;
+  numeric?: boolean;
+  prefix?: string;
+  suffix?: string;
+  icon?: string;
+  class?: string;
+  [key: string]: unknown;
+}
+const {
+  size = "md",
+  invalid = false,
+  numeric = false,
+  prefix,
+  suffix,
+  icon,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const cls = [
+  "qv-input",
+  size !== "md" ? `qv-input--${size}` : "",
+  invalid ? "qv-input--invalid" : "",
+  numeric ? "qv-input--numeric" : "",
+  prefix || icon ? "qv-input--pad-left" : "",
+  suffix ? "qv-input--pad-right" : "",
+  className,
+];
+const bare = !prefix && !suffix && !icon;
+---
+
+{
+  bare ? (
+    <input class:list={cls} aria-invalid={invalid || undefined} {...rest} />
+  ) : (
+    <span class="qv-input-wrap">
+      {icon ? (
+        <span class="qv-input-wrap__affix qv-input-wrap__affix--left"><Icon name={icon} size={15} /></span>
+      ) : prefix ? (
+        <span class="qv-input-wrap__affix qv-input-wrap__affix--left">{prefix}</span>
+      ) : null}
+      <input class:list={cls} aria-invalid={invalid || undefined} {...rest} />
+      {suffix && <span class="qv-input-wrap__affix qv-input-wrap__affix--right">{suffix}</span>}
+    </span>
+  )
+}

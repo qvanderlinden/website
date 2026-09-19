@@ -1,0 +1,84 @@
+---
+/**
+ * CaseStudy — shared scaffold for a /work/<slug> article: breadcrumbs, title,
+ * header tags, a two-column prose + sticky rail, and a closing CTA. Pages pass
+ * their facts as props and their body via the default slot; extra rail cards go
+ * in the `rail` slot (rendered above the auto "Stack" card).
+ */
+import Base from "./Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Tag from "../components/Tag.astro";
+import Card from "../components/Card.astro";
+import Button from "../components/Button.astro";
+
+interface Glance {
+  client: string;
+  year: string;
+  duration: string;
+  role: string;
+}
+interface Props {
+  title: string;
+  description: string;
+  heading: string;
+  crumb: string;
+  tags: string[];
+  glance: Glance;
+  /** Full tech list rendered as a "Stack" card in the rail. */
+  stack?: string[];
+}
+const { title, description, heading, crumb, tags, glance, stack } = Astro.props;
+const hasRail = Astro.slots.has("rail");
+---
+
+<Base active="work" title={title} description={description}>
+  <div class="wrap" style="padding-top:var(--space-10)">
+    <Breadcrumbs items={[{ label: "work", href: "/work" }, { label: crumb }]} />
+    <h1 style="font:var(--type-display);font-size:clamp(30px,7vw,49px);margin-top:var(--space-5);max-width:18ch">
+      {heading}
+    </h1>
+    <div style="display:flex;gap:8px;margin-top:var(--space-5);flex-wrap:wrap">
+      {tags.map((t) => <Tag>{t}</Tag>)}
+    </div>
+
+    <div class="grid2" style="margin-top:var(--space-12);align-items:start">
+      <div class="prose"><slot /></div>
+
+      <div style="display:flex;flex-direction:column;gap:var(--space-4);position:sticky;top:80px">
+        <Card title="At a glance">
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font:var(--type-body-sm)">
+            <span style="color:var(--text-subtle)">client</span><span>{glance.client}</span>
+            <span style="color:var(--text-subtle)">year</span><span>{glance.year}</span>
+            <span style="color:var(--text-subtle)">duration</span><span>{glance.duration}</span>
+            <span style="color:var(--text-subtle)">role</span><span set:html={glance.role} />
+          </div>
+        </Card>
+
+        {hasRail && <slot name="rail" />}
+
+        {
+          stack && stack.length > 0 && (
+            <Card title="Stack">
+              <div style="display:flex;flex-wrap:wrap;gap:8px">
+                {stack.map((t) => <Tag>{t}</Tag>)}
+              </div>
+            </Card>
+          )
+        }
+      </div>
+    </div>
+
+    <div
+      class="sect"
+      style="margin-top:var(--space-16);display:flex;justify-content:space-between;align-items:center;gap:20px"
+    >
+      <div>
+        <span class="eyebrow">want something similar?</span>
+        <div style="font:var(--type-heading);color:var(--text-strong);margin-top:6px">
+          Tell me what's slow, manual, or fragile
+        </div>
+      </div>
+      <Button variant="secondary" iconRight="arrow-right" href="/contact">Start a project</Button>
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,32 @@
+---
+/** TrendValue — mirrors the design system TrendValue (up/down/flat delta). */
+import Icon from "./Icon.astro";
+
+interface Props {
+  value?: number;
+  label?: string;
+  invert?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+const { value = 0, label, invert = false, class: className, ...rest } = Astro.props;
+
+const dir = value > 0 ? "up" : value < 0 ? "down" : "flat";
+const good = invert ? dir === "down" : dir === "up";
+const tone = dir === "flat" ? "flat" : good ? "up" : "down";
+const text = (value > 0 ? "+" : "") + value.toFixed(1) + "%";
+const iconName =
+  dir === "up" ? "trending-up" : dir === "down" ? "trending-down" : "minus";
+---
+
+<span class:list={["qv-trend", `qv-trend--${tone}`, className]} {...rest}>
+  <Icon name={iconName} size={13} />
+  {text}
+  {
+    label && (
+      <span style="color:var(--text-muted);font-family:var(--font-sans);font-weight:400">
+        {label}
+      </span>
+    )
+  }
+</span>

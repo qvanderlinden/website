@@ -1,0 +1,40 @@
+---
+import CaseStudy from "../../layouts/CaseStudy.astro";
+import Callout from "../../components/Callout.astro";
+---
+
+<CaseStudy
+  title="CSC — case study — quentin vanderlinden"
+  description="A data-vault warehouse and ETL for a top Belgian insurer, plus location-intelligence work with Python and QGIS."
+  heading="A data-vault warehouse for a Belgian insurer"
+  crumb="csc"
+  tags={["python", "sql", "qgis"]}
+  glance={{
+    client: "CSC — Zaventem",
+    year: "2015 – 16",
+    duration: "~1 year",
+    role: "data scientist — employee",
+  }}
+  stack={["python", "sql", "qgis", "google maps platform"]}
+>
+  <p>
+    My first role out of university was in the Big Data &amp; Analytics department at
+    <strong>CSC</strong>, working as a data scientist.
+  </p>
+  <p>
+    Most of my time went to a business-intelligence project for one of the top players
+    in Belgian insurance, building a data warehouse on the data-vault architecture. My
+    role was mainly maintenance, but I also got to implement a handful of ETL workflows.
+  </p>
+  <h3>On the side</h3>
+  <p>
+    The rest of the time was split across smaller projects doing location intelligence
+    — using Python and QGIS to turn geographic data into something the business could
+    act on.
+  </p>
+
+  <Callout slot="rail" tone="info" title="Where it started">
+    Data-vault modelling, ETL, and location intelligence — the first taste of the data
+    work that still runs through everything I build.
+  </Callout>
+</CaseStudy>

@@ -1,0 +1,16 @@
+---
+/** Textarea — mirrors the design system Textarea. */
+interface Props {
+  invalid?: boolean;
+  rows?: number;
+  class?: string;
+  [key: string]: unknown;
+}
+const { invalid = false, rows = 4, class: className, ...rest } = Astro.props;
+---
+
+<textarea
+  rows={rows}
+  class:list={["qv-input", "qv-textarea", invalid ? "qv-input--invalid" : "", className]}
+  aria-invalid={invalid || undefined}
+  {...rest}></textarea>

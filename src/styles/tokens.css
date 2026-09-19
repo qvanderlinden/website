@@ -1,0 +1,180 @@
+/* =============================================================================
+   Design tokens — ported verbatim from the "Quentin Vanderlinden Design System"
+   Claude Design project. Framework-agnostic; the single source of truth for the
+   brand. Tailwind theme values (global.css @theme) reference these same values.
+   ========================================================================== */
+
+/* Fonts are imported at the top of global.css (an @import must precede all other
+   rules). To self-host, drop .woff2 files in /public/fonts and replace that
+   import with matching @font-face rules here. */
+
+:root {
+  /* ---- Colors: cream (paper) ---- */
+  --cream-50:#FDFBF7;--cream-100:#F9F5ED;--cream-200:#F3ECE0;--cream-300:#EBE1D1;--cream-400:#DFD2BE;--cream-500:#CBBBA3;
+  /* ---- Colors: ink (warm near-black neutrals) ---- */
+  --ink-900:#1B1815;--ink-800:#23201D;--ink-700:#2F2A25;--ink-600:#4A4239;--ink-500:#6B6155;--ink-400:#8C8173;--ink-300:#A99E8E;--ink-200:#C6BCAC;
+  /* ---- Colors: terracotta (clay) ---- */
+  --clay-900:#5E2312;--clay-800:#7A2F19;--clay-700:#963B21;--clay-600:#B04A2A;--clay-500:#C25A35;--clay-400:#D4795A;--clay-300:#E4A489;--clay-200:#F0CBB8;--clay-100:#F8E5DA;
+  /* ---- Colors: supporting hues (muted, warm-compatible) ---- */
+  --olive-600:#4C6238;--olive-500:#5F7A4A;--olive-200:#D8E1CB;
+  --amber-600:#9A6A18;--amber-500:#C08A2E;--amber-200:#F3E1BE;
+  --rust-600:#96271C;--rust-500:#B03A2E;--rust-200:#F3D2CC;
+  --slate-600:#2F5A75;--slate-500:#3E6B8A;--slate-200:#CFDCE4;
+
+  /* ---- Semantic: surfaces ---- */
+  --surface-page:var(--cream-100);
+  --surface-card:var(--cream-50);
+  --surface-sunken:var(--cream-200);
+  --surface-raised:#FFFFFF;
+  --surface-inverse:var(--ink-800);
+  --surface-inverse-soft:var(--ink-700);
+  --surface-accent-soft:var(--clay-100);
+  --surface-hover:rgba(35,32,29,.04);
+  --surface-active:rgba(35,32,29,.08);
+  --surface-selected:var(--clay-100);
+  --scrim:rgba(27,24,21,.52);
+
+  /* ---- Semantic: text ---- */
+  --text-strong:var(--ink-900);
+  --text-body:var(--ink-700);
+  --text-muted:var(--ink-500);
+  --text-subtle:var(--ink-400);
+  --text-accent:var(--clay-700);
+  --text-on-accent:var(--cream-50);
+  --text-on-inverse:var(--cream-100);
+  --text-inverse-muted:var(--ink-300);
+  --text-link:var(--clay-700);
+  --text-link-hover:var(--clay-900);
+
+  /* ---- Semantic: lines ---- */
+  --border-hairline:rgba(35,32,29,.10);
+  --border-default:rgba(35,32,29,.16);
+  --border-strong:rgba(35,32,29,.28);
+  --border-inverse:rgba(246,241,231,.18);
+  --border-accent:var(--clay-500);
+  --focus-ring:var(--clay-500);
+  --focus-ring-halo:rgba(194,90,53,.22);
+
+  /* ---- Semantic: actions ---- */
+  --action-primary:var(--clay-600);
+  --action-primary-hover:var(--clay-700);
+  --action-primary-active:var(--clay-800);
+  --action-secondary:var(--ink-800);
+  --action-secondary-hover:var(--ink-900);
+  --action-disabled-bg:var(--cream-300);
+  --action-disabled-text:var(--ink-300);
+
+  /* ---- Semantic: status ---- */
+  --status-positive:var(--olive-500);--status-positive-text:var(--olive-600);--status-positive-soft:var(--olive-200);
+  --status-warning:var(--amber-500);--status-warning-text:var(--amber-600);--status-warning-soft:var(--amber-200);
+  --status-negative:var(--rust-500);--status-negative-text:var(--rust-600);--status-negative-soft:var(--rust-200);
+  --status-info:var(--slate-500);--status-info-text:var(--slate-600);--status-info-soft:var(--slate-200);
+
+  /* ---- Data visualisation (ordered categorical ramp) ---- */
+  --chart-1:var(--clay-500);
+  --chart-2:var(--slate-500);
+  --chart-3:var(--olive-500);
+  --chart-4:var(--amber-500);
+  --chart-5:var(--clay-800);
+  --chart-6:var(--ink-400);
+  --chart-grid:rgba(35,32,29,.09);
+  --chart-axis:var(--ink-400);
+  --chart-positive:var(--olive-500);
+  --chart-negative:var(--rust-500);
+
+  /* ---- Typography: families ---- */
+  --font-display:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --font-sans:"Instrument Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-brand:"Share Tech Mono","IBM Plex Mono",ui-monospace,monospace;
+
+  /* ---- Typography: size ramp (1.25 major third, rounded to whole px) ---- */
+  --text-2xs:11px;--text-xs:12px;--text-sm:13px;--text-md:15px;--text-lg:17px;
+  --text-xl:20px;--text-2xl:25px;--text-3xl:31px;--text-4xl:39px;--text-5xl:49px;--text-6xl:61px;
+
+  /* ---- Typography: line heights ---- */
+  --leading-tight:1.08;--leading-snug:1.25;--leading-normal:1.5;--leading-relaxed:1.65;
+
+  /* ---- Typography: weights ---- */
+  --weight-regular:400;--weight-medium:500;--weight-semibold:600;--weight-bold:700;
+
+  /* ---- Typography: tracking ---- */
+  --tracking-display:-0.015em;--tracking-normal:0em;--tracking-wide:0.02em;--tracking-caps:0.14em;
+
+  /* ---- Typography: composed roles ---- */
+  --type-display:var(--weight-regular) var(--text-5xl)/var(--leading-tight) var(--font-display);
+  --type-title:var(--weight-regular) var(--text-3xl)/var(--leading-snug) var(--font-display);
+  --type-heading:var(--weight-semibold) var(--text-xl)/var(--leading-snug) var(--font-sans);
+  --type-subheading:var(--weight-semibold) var(--text-md)/var(--leading-snug) var(--font-sans);
+  --type-body:var(--weight-regular) var(--text-md)/var(--leading-relaxed) var(--font-sans);
+  --type-body-sm:var(--weight-regular) var(--text-sm)/var(--leading-normal) var(--font-sans);
+  --type-label:var(--weight-medium) var(--text-sm)/var(--leading-snug) var(--font-sans);
+  --type-eyebrow:var(--weight-regular) var(--text-2xs)/var(--leading-snug) var(--font-mono);
+  --type-mono:var(--weight-regular) var(--text-sm)/var(--leading-normal) var(--font-mono);
+  --type-numeric:var(--weight-medium) var(--text-md)/var(--leading-snug) var(--font-mono);
+
+  /* ---- Spacing: 4px base ---- */
+  --space-0:0px;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;
+  --space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;--space-20:80px;--space-24:96px;--space-32:128px;
+
+  /* ---- Spacing: component rhythm ---- */
+  --control-height-sm:30px;--control-height-md:38px;--control-height-lg:46px;
+  --control-pad-x-sm:10px;--control-pad-x-md:14px;--control-pad-x-lg:18px;
+  --card-pad:var(--space-6);--card-pad-tight:var(--space-4);
+  --stack-gap:var(--space-4);--field-gap:var(--space-2);--section-gap:var(--space-16);
+
+  /* ---- Layout ---- */
+  --measure:66ch;--measure-narrow:52ch;
+  --container-sm:640px;--container-md:880px;--container-lg:1120px;--container-xl:1320px;
+  --gutter:var(--space-6);--gutter-lg:var(--space-10);
+  --sidebar-width:236px;--topbar-height:60px;
+
+  /* ---- Shape ---- */
+  --radius-none:0px;--radius-xs:2px;--radius-sm:4px;--radius-md:6px;--radius-lg:10px;--radius-xl:14px;--radius-pill:999px;
+  --border-width:1px;--border-width-thick:2px;
+  --rule:1px solid var(--border-hairline);
+  --outline-offset:2px;
+  --grid-cell:15px;--grid-gutter:4px;--grid-pitch:19px;
+
+  /* ---- Elevation (warm-tinted, shallow — paper on paper) ---- */
+  --shadow-none:none;
+  --shadow-xs:0 1px 1px rgba(59,45,32,.05);
+  --shadow-sm:0 1px 2px rgba(59,45,32,.06),0 1px 1px rgba(59,45,32,.04);
+  --shadow-md:0 2px 6px rgba(59,45,32,.07),0 1px 2px rgba(59,45,32,.05);
+  --shadow-lg:0 8px 24px rgba(59,45,32,.10),0 2px 6px rgba(59,45,32,.06);
+  --shadow-overlay:0 24px 60px rgba(27,24,21,.22),0 4px 12px rgba(27,24,21,.10);
+  --shadow-inset:inset 0 1px 2px rgba(59,45,32,.06);
+  --shadow-focus:0 0 0 3px var(--focus-ring-halo);
+  --blur-scrim:blur(2px);
+
+  /* ---- Motion ---- */
+  --duration-instant:80ms;--duration-fast:130ms;--duration-base:190ms;--duration-slow:280ms;--duration-slower:420ms;
+  --ease-standard:cubic-bezier(.2,.8,.25,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --ease-in:cubic-bezier(.4,0,1,1);
+  --ease-inout:cubic-bezier(.65,0,.35,1);
+  --transition-color:color var(--duration-fast) var(--ease-out),background-color var(--duration-fast) var(--ease-out),border-color var(--duration-fast) var(--ease-out);
+  --transition-transform:transform var(--duration-fast) var(--ease-out);
+}
+
+@media (prefers-reduced-motion:reduce){
+  :root{--duration-instant:0ms;--duration-fast:0ms;--duration-base:0ms;--duration-slow:0ms;--duration-slower:0ms}
+}
+
+/* ---- Base element styles ---- */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--surface-page);color:var(--text-body);font:var(--type-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,h4,h5,h6{margin:0;color:var(--text-strong);text-wrap:balance}
+h1{font:var(--type-display);letter-spacing:var(--tracking-display)}
+h2{font:var(--type-title);letter-spacing:var(--tracking-display)}
+h3{font:var(--type-heading)}
+h4{font:var(--type-subheading)}
+p{margin:0;text-wrap:pretty}
+a{color:var(--text-link);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;text-decoration-color:var(--clay-300);transition:var(--transition-color)}
+a:hover{color:var(--text-link-hover);text-decoration-color:currentColor}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--focus-ring);outline-offset:var(--outline-offset)}
+code,kbd,samp,pre{font-family:var(--font-mono);font-size:.92em}
+hr{border:0;border-top:var(--rule);margin:var(--space-8) 0}
+::selection{background:var(--clay-200);color:var(--ink-900)}
+table{border-collapse:collapse}
+[data-numeric],.qv-numeric{font-family:var(--font-mono);font-variant-numeric:tabular-nums}

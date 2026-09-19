@@ -1,0 +1,45 @@
+---
+import CaseStudy from "../../layouts/CaseStudy.astro";
+import Callout from "../../components/Callout.astro";
+---
+
+<CaseStudy
+  title="Enobase — case study — quentin vanderlinden"
+  description="In-house tooling that diffs a declarative database schema and generates typed migrations automatically."
+  heading="Migrations you don't write by hand"
+  crumb="enobase"
+  tags={["typescript", "postgres", "kysely"]}
+  glance={{
+    client: "Enobase — Brussels",
+    year: "2024",
+    duration: "~5 months",
+    role: "solo — freelance",
+  }}
+  stack={["typescript", "postgres", "kysely"]}
+>
+  <p>
+    <strong>Enobase</strong> was a friend's early-stage startup. Between missions, I
+    jumped in to build a piece of internal tooling the team kept tripping over.
+  </p>
+  <p>
+    Their database schema was declared in code, but the actual database drifted from
+    it, and reconciling the two with hand-written migrations was tedious and easy to
+    get wrong.
+  </p>
+  <h3>What shipped</h3>
+  <p>
+    Tooling that detects the changes made to the declarative schema and generates the
+    corresponding TypeScript migrations for it — typed end to end with Kysely, so a
+    schema edit turns into a reviewable migration instead of a manual chore.
+  </p>
+  <h3>Result</h3>
+  <p>
+    Schema changes stopped being a source of drift and foot-guns: the diff is the
+    migration, and it's generated, typed and reviewable by default.
+  </p>
+
+  <Callout slot="rail" tone="accent" title="The idea">
+    The declarative schema is the single source of truth. Every migration is diffed
+    out of it and generated as typed Kysely code — never written by hand.
+  </Callout>
+</CaseStudy>

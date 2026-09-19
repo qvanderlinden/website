@@ -1,0 +1,80 @@
+---
+import CaseStudy from "../../layouts/CaseStudy.astro";
+import Card from "../../components/Card.astro";
+import Callout from "../../components/Callout.astro";
+---
+
+<CaseStudy
+  title="imec — case study — quentin vanderlinden"
+  description="Nearly four years across smart-city prototyping, a digital-twin backend, and an urban-mobility optimization model."
+  heading="Smart cities, a digital twin, and how a city moves"
+  crumb="imec"
+  tags={["python", "kafka", "deck.gl"]}
+  glance={{
+    client: "imec — Leuven",
+    year: "2019 – 22",
+    duration: "~3.7 years",
+    role: "fullstack / data — freelance",
+  }}
+  stack={[
+    "typescript",
+    "react",
+    "redux",
+    "redux-saga",
+    "mapbox",
+    "deck.gl",
+    "graphql",
+    "kafka",
+    "docker",
+    "kubernetes",
+    "azure devops",
+    "terraform",
+    "python",
+    "pandas",
+    "osqp",
+  ]}
+>
+  <p>
+    <strong>imec</strong> was my longest engagement, and it moved through three quite
+    different chapters.
+  </p>
+  <p>
+    It started with smart-city prototyping: research projects and the in-house tooling
+    to enable them, with map visualizations of sensor data to help decision makers and
+    citizens make informed calls.
+  </p>
+  <p>
+    Then I joined the Digital Twin team and moved toward the backend — building and
+    maintaining a range of micro-services, processing event streams with Kafka, and
+    picking up DevOps and infrastructure-as-code along the way.
+  </p>
+  <h3>The mobility model</h3>
+  <p>
+    The last chapter was a data-science project on urban mobility: understanding how
+    pedestrians, cyclists and cars move through Flemish cities, and predicting what
+    closing a given road does to neighbouring streets. I was involved end to end —
+    data acquisition (static datasets and scraping web APIs), transformation and
+    cleansing, modelling, validation and interpreting the output.
+  </p>
+  <Callout tone="accent" title="The model">
+    A convex optimization program built on dynamics equations, solved with OSQP —
+    turning messy movement data into something a city could actually reason about.
+  </Callout>
+
+  <Card slot="rail" title="Three chapters">
+    <div style="display:flex;flex-direction:column;gap:var(--space-3);font:var(--type-body-sm)">
+      <div>
+        <div style="color:var(--text-strong);font-weight:500">smart-city tooling</div>
+        <div style="color:var(--text-muted)">sensor-data maps for decision makers</div>
+      </div>
+      <div>
+        <div style="color:var(--text-strong);font-weight:500">digital twin</div>
+        <div style="color:var(--text-muted)">micro-services, Kafka, IaC</div>
+      </div>
+      <div>
+        <div style="color:var(--text-strong);font-weight:500">urban mobility</div>
+        <div style="color:var(--text-muted)">convex optimization, end to end</div>
+      </div>
+    </div>
+  </Card>
+</CaseStudy>

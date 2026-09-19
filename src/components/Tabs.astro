@@ -1,0 +1,34 @@
+---
+/**
+ * Tabs — mirrors the design system Tabs. Renders as buttons carrying a
+ * `data-tab` value; the page's client script toggles `aria-selected` and
+ * filters content. `value` sets the initially-selected tab.
+ */
+interface Props {
+  tabs?: (string | { value: string; label: string; count?: number })[];
+  value?: string;
+  class?: string;
+  [key: string]: unknown;
+}
+const { tabs = [], value, class: className, ...rest } = Astro.props;
+const items = tabs.map((t) =>
+  typeof t === "string" ? { value: t, label: t } : t,
+);
+---
+
+<div class:list={["qv-tabs", className]} role="tablist" {...rest}>
+  {
+    items.map((tab) => (
+      <button
+        type="button"
+        role="tab"
+        class="qv-tabs__tab"
+        data-tab={tab.value}
+        aria-selected={value === tab.value ? "true" : "false"}
+      >
+        {tab.label}
+        {tab.count != null && <span class="qv-tabs__count">{tab.count}</span>}
+      </button>
+    ))
+  }
+</div>

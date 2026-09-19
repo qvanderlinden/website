@@ -1,0 +1,25 @@
+---
+/** Tag — mirrors the design system Tag (static pill variant used by the site). */
+interface Props {
+  selected?: boolean;
+  href?: string;
+  class?: string;
+  [key: string]: unknown;
+}
+const { selected = false, href, class: className, ...rest } = Astro.props;
+const interactive = Boolean(href);
+const Tag = href ? "a" : "span";
+---
+
+<Tag
+  class:list={[
+    "qv-tag",
+    interactive ? "qv-tag--interactive" : "",
+    selected ? "qv-tag--selected" : "",
+    className,
+  ]}
+  href={href}
+  {...rest}
+>
+  <slot />
+</Tag>

@@ -1,0 +1,31 @@
+---
+import Base from "../../layouts/Base.astro";
+import WorkList from "../../components/WorkList.astro";
+import { work } from "../../data/work";
+---
+
+<Base
+  active="work"
+  title="work — quentin vanderlinden"
+  description="Selected freelance and full-time engagements — web apps, data pipelines, and optimization, from 2015 to today."
+>
+  <div class="wrap" style="padding-top:var(--space-16)">
+    <span class="eyebrow">work</span>
+    <h1 style="font:var(--type-display);font-size:clamp(30px,7vw,49px);margin-top:12px;max-width:20ch">
+      A decade of shipping, across the stack
+    </h1>
+    <p class="lede">
+      Freelance missions and full-time roles since 2015 — web applications, data
+      pipelines and automation, and the occasional optimization model. A few have a
+      write-up; the rest are a line each for now.
+    </p>
+
+    <section class="sect" style="margin-top:var(--space-12)">
+      <div class="sect__head">
+        <span class="eyebrow">selected work</span>
+        <span class="work__meta">2015 — present</span>
+      </div>
+      <WorkList items={work} />
+    </section>
+  </div>
+</Base>

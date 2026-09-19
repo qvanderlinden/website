@@ -1,0 +1,51 @@
+---
+import CaseStudy from "../../layouts/CaseStudy.astro";
+import Callout from "../../components/Callout.astro";
+---
+
+<CaseStudy
+  title="The Great Circle — case study — quentin vanderlinden"
+  description="Frontend and desktop decision-support tools for sailors, plus the backend and weather-data pipelines behind them."
+  heading="Decision-support tools for sailors, amateur to pro"
+  crumb="the great circle"
+  tags={["react", "mapbox", "electron"]}
+  glance={{
+    client: "The Great Circle — Rixensart",
+    year: "2016 – 19",
+    duration: "~2.2 years",
+    role: "fullstack — employee",
+  }}
+  stack={[
+    "react",
+    "redux",
+    "mapbox",
+    "electron",
+    "node.js",
+    "express.js",
+    "typescript",
+    "linux",
+    "heroku",
+  ]}
+>
+  <p>
+    At <strong>The Great Circle</strong>, I spent most of my time building the frontend
+    web (and desktop, via Electron) applications that help sailors make decisions —
+    from weekend amateurs to professionals.
+  </p>
+  <p>
+    Around the frontends, I built the backend services to pair with them, designed or
+    played with algorithms when the occasion arose, and put together the data pipelines
+    that pulled in and reshaped the data they ran on.
+  </p>
+  <h3>Weather in, decisions out</h3>
+  <p>
+    A recurring thread was integrating new weather-data sources into the backend:
+    retrieval and manipulation pipelines that turned each new feed into something the
+    apps could route and reason with.
+  </p>
+
+  <Callout slot="rail" tone="info" title="Range">
+    The same tools had to serve a weekend sailor and a professional racer — which kept
+    the interfaces honest and the algorithms defensible.
+  </Callout>
+</CaseStudy>

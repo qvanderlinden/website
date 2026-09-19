@@ -1,0 +1,15 @@
+---
+/** Badge — mirrors the design system Badge. */
+interface Props {
+  tone?: "neutral" | "accent" | "positive" | "warning" | "negative" | "info" | "solid";
+  dot?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+const { tone = "neutral", dot = false, class: className, ...rest } = Astro.props;
+---
+
+<span class:list={["qv-badge", `qv-badge--${tone}`, className]} {...rest}>
+  {dot && <span class="qv-badge__dot"></span>}
+  <slot />
+</span>

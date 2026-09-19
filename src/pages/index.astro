@@ -1,0 +1,119 @@
+---
+import Base from "../layouts/Base.astro";
+import Badge from "../components/Badge.astro";
+import Button from "../components/Button.astro";
+import Card from "../components/Card.astro";
+import Icon from "../components/Icon.astro";
+import StatCard from "../components/StatCard.astro";
+import WorkList from "../components/WorkList.astro";
+import { posts } from "../data/posts";
+import { work } from "../data/work";
+
+const teaserWork = work.slice(0, 4);
+
+const PROCESS = [
+  {
+    title: "quantitative",
+    icon: "sigma",
+    desc: "A master's in applied maths. I reach for modelling and optimization where guesswork usually wins.",
+  },
+  {
+    title: "end to end",
+    icon: "layers",
+    desc: "Frontend, backend, data pipelines, infrastructure. I've shipped across the whole stack for a decade.",
+  },
+  {
+    title: "handover-minded",
+    icon: "package-check",
+    desc: "I coach junior devs and document as I go, so the work outlives the engagement.",
+  },
+];
+
+const teaser = posts.slice(0, 3);
+---
+
+<Base active="home">
+  <div class="wrap">
+    <section class="hero">
+      <Badge tone="positive" dot>open to new work</Badge>
+      <h1 style="margin-top:20px">
+        Fullstack software,<br /><span class="em">quietly rigorous</span>
+      </h1>
+      <p class="lede">
+        I'm Quentin — a freelance fullstack engineer with a master's in applied
+        mathematics. I build web apps in Next.js and Python, plus the data pipelines
+        and optimization models underneath. Ten years across the stack, from React
+        frontends to Kafka and Kubernetes.
+      </p>
+      <div style="display:flex;gap:var(--space-3);margin-top:var(--space-8);flex-wrap:wrap">
+        <Button iconRight="arrow-right" href="/contact">Start a project</Button>
+        <Button variant="secondary" href="/work">Read a case study</Button>
+      </div>
+    </section>
+
+    <section class="sect">
+      <div class="sect__head">
+        <span class="eyebrow">selected work</span>
+        <a href="/work">all work</a>
+      </div>
+      <WorkList items={teaserWork} />
+    </section>
+
+    <section class="sect">
+      <div class="sect__head"><span class="eyebrow">how i work</span></div>
+      <div class="grid3">
+        {
+          PROCESS.map((p) => (
+            <Card variant="flat">
+              <Icon name={p.icon} size={20} color="var(--text-accent)" />
+              <div style="font:var(--type-subheading);color:var(--text-strong);margin-top:12px">
+                {p.title}
+              </div>
+              <p style="font:var(--type-body-sm);color:var(--text-muted);margin-top:6px">
+                {p.desc}
+              </p>
+            </Card>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="sect">
+      <div class="grid2" style="align-items:center">
+        <div>
+          <span class="eyebrow">in numbers</span>
+          <div style="display:flex;gap:var(--space-3);margin-top:var(--space-5)">
+            <StatCard style="flex:1" label="years building" value="11" />
+            <StatCard style="flex:1" label="companies" value="06" />
+            <StatCard style="flex:1" label="ironman finishes" value="×3" accent />
+          </div>
+        </div>
+        <Card variant="inverse">
+          <p style="font:var(--type-body);color:var(--cream-100)">
+            I care about the maths under the product. My thesis was on community
+            detection in complex networks; the day job is making that kind of rigour
+            actually ship — and stay readable to the team that inherits it.
+          </p>
+          <div style="font:var(--type-mono);font-size:var(--text-xs);color:var(--ink-300);margin-top:16px">
+            m.sc. applied mathematics · magna cum laude · uclouvain
+          </div>
+        </Card>
+      </div>
+    </section>
+
+    <section class="sect">
+      <div class="sect__head">
+        <span class="eyebrow">writing</span>
+        <a href="/writing">all posts</a>
+      </div>
+      {
+        teaser.map((p) => (
+          <a class="post" href="/writing" style="text-decoration:none">
+            <span class="post__title">{p.title}</span>
+            <span class="work__meta">{p.readingTime} · {p.month}</span>
+          </a>
+        ))
+      }
+    </section>
+  </div>
+</Base>

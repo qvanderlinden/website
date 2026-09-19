@@ -1,0 +1,45 @@
+---
+/**
+ * WorkList — renders the selected-work list (design system `.work` rows) from
+ * an array of engagements. Rows with a `slug` link to their case study at
+ * /work/<slug> and show the arrow affordance; others render as plain rows.
+ */
+import Icon from "./Icon.astro";
+import type { Engagement } from "../data/work";
+
+interface Props {
+  items: Engagement[];
+}
+const { items } = Astro.props;
+---
+
+<div class="work">
+  {
+    items.map((w) =>
+      w.slug ? (
+        <a class="work__row" href={`/work/${w.slug}`} style="text-decoration:none">
+          <div>
+            <div class="work__title">{w.company}</div>
+            <div class="work__desc">{w.blurb}</div>
+          </div>
+          <div class="work__meta work__stack">{w.stack}</div>
+          <div style="display:flex;align-items:center;justify-content:flex-end;gap:10px">
+            <span class="work__meta">{w.year}</span>
+            <Icon name="arrow-up-right" size={16} />
+          </div>
+        </a>
+      ) : (
+        <div class="work__row" style="cursor:default">
+          <div>
+            <div class="work__title">{w.company}</div>
+            <div class="work__desc">{w.blurb}</div>
+          </div>
+          <div class="work__meta work__stack">{w.stack}</div>
+          <div style="display:flex;align-items:center;justify-content:flex-end;gap:10px">
+            <span class="work__meta">{w.year}</span>
+          </div>
+        </div>
+      ),
+    )
+  }
+</div>

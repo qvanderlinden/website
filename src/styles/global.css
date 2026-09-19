@@ -1,0 +1,47 @@
+/* =============================================================================
+   Global stylesheet entry. Load order matters:
+   1. Tailwind (preflight + utilities, all in cascade layers)
+   2. Design tokens + base element styles (unlayered → win over preflight)
+   3. Component + page-layout CSS (unlayered)
+
+   The @theme block below re-exposes the brand tokens to Tailwind, so utilities
+   like `bg-clay-600`, `text-ink-900`, `font-mono` resolve to brand values.
+   The DS 4px spacing scale already matches Tailwind's default spacing (1 = 4px),
+   so `py-24`, `gap-6`, etc. line up with `--space-*` with no extra config.
+   ========================================================================== */
+/* Webfonts — must precede every other rule (CSS @import ordering). Served from
+   Google Fonts; self-host by swapping this for @font-face rules in tokens.css. */
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=Share+Tech+Mono&display=swap");
+
+@import "tailwindcss";
+
+@import "./tokens.css";
+@import "./components.css";
+@import "./site.css";
+
+@theme {
+  /* Brand color ramps */
+  --color-cream-50:#FDFBF7;--color-cream-100:#F9F5ED;--color-cream-200:#F3ECE0;--color-cream-300:#EBE1D1;--color-cream-400:#DFD2BE;--color-cream-500:#CBBBA3;
+  --color-ink-900:#1B1815;--color-ink-800:#23201D;--color-ink-700:#2F2A25;--color-ink-600:#4A4239;--color-ink-500:#6B6155;--color-ink-400:#8C8173;--color-ink-300:#A99E8E;--color-ink-200:#C6BCAC;
+  --color-clay-900:#5E2312;--color-clay-800:#7A2F19;--color-clay-700:#963B21;--color-clay-600:#B04A2A;--color-clay-500:#C25A35;--color-clay-400:#D4795A;--color-clay-300:#E4A489;--color-clay-200:#F0CBB8;--color-clay-100:#F8E5DA;
+  --color-olive-600:#4C6238;--color-olive-500:#5F7A4A;--color-olive-200:#D8E1CB;
+  --color-amber-600:#9A6A18;--color-amber-500:#C08A2E;--color-amber-200:#F3E1BE;
+  --color-rust-600:#96271C;--color-rust-500:#B03A2E;--color-rust-200:#F3D2CC;
+  --color-slate-600:#2F5A75;--color-slate-500:#3E6B8A;--color-slate-200:#CFDCE4;
+
+  /* Font families */
+  --font-display:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --font-sans:"Instrument Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-brand:"Share Tech Mono","IBM Plex Mono",ui-monospace,monospace;
+
+  /* Type scale (matches --text-* tokens) */
+  --text-2xs:11px;--text-xs:12px;--text-sm:13px;--text-md:15px;--text-lg:17px;
+  --text-xl:20px;--text-2xl:25px;--text-3xl:31px;--text-4xl:39px;--text-5xl:49px;--text-6xl:61px;
+
+  /* Radii */
+  --radius-xs:2px;--radius-sm:4px;--radius-md:6px;--radius-lg:10px;--radius-xl:14px;
+
+  /* Named container widths (usable as max-w-container-lg, etc.) */
+  --container-sm:640px;--container-md:880px;--container-lg:1120px;--container-xl:1320px;
+}

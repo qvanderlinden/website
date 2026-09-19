@@ -1,0 +1,55 @@
+---
+/**
+ * Card — mirrors the design system Card. `title`/`subtitle` render the header;
+ * an `actions` slot sits opposite the title, a `footer` slot renders the footer.
+ */
+interface Props {
+  title?: string;
+  subtitle?: string;
+  variant?: "default" | "flat" | "raised" | "inverse";
+  interactive?: boolean;
+  padding?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+const {
+  title,
+  subtitle,
+  variant = "default",
+  interactive = false,
+  padding = true,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const hasActions = Astro.slots.has("actions");
+const hasFooter = Astro.slots.has("footer");
+const cls = [
+  "qv-card",
+  variant !== "default" ? `qv-card--${variant}` : "",
+  interactive ? "qv-card--interactive" : "",
+  className,
+];
+---
+
+<section class:list={cls} {...rest}>
+  {(title || hasActions) && (
+    <header class="qv-card__header">
+      <div>
+        <div class="qv-card__title">{title}</div>
+        {subtitle && <div class="qv-card__subtitle">{subtitle}</div>}
+      </div>
+      {hasActions && (
+        <div style="display:flex;gap:var(--space-2)">
+          <slot name="actions" />
+        </div>
+      )}
+    </header>
+  )}
+  <div class="qv-card__body" style={padding ? undefined : "padding:0"}>
+    <slot />
+  </div>
+  {hasFooter && (
+    <footer class="qv-card__footer"><slot name="footer" /></footer>
+  )}
+</section>

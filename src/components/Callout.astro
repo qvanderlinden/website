@@ -1,0 +1,29 @@
+---
+/** Callout — mirrors the design system Callout. */
+import Icon from "./Icon.astro";
+
+interface Props {
+  tone?: "info" | "accent" | "positive" | "warning" | "negative";
+  title?: string;
+  icon?: string;
+  class?: string;
+  [key: string]: unknown;
+}
+const { tone = "info", title, icon, class: className, ...rest } = Astro.props;
+
+const ICONS: Record<string, string> = {
+  info: "info",
+  accent: "sparkles",
+  positive: "check-circle",
+  warning: "alert-triangle",
+  negative: "alert-octagon",
+};
+---
+
+<div class:list={["qv-callout", tone !== "info" ? `qv-callout--${tone}` : "", className]} {...rest}>
+  <Icon name={icon || ICONS[tone]} size={16} />
+  <div>
+    {title && <div class="qv-callout__title">{title}</div>}
+    <div><slot /></div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+---
+import CaseStudy from "../../layouts/CaseStudy.astro";
+import Callout from "../../components/Callout.astro";
+---
+
+<CaseStudy
+  title="Embie — case study — quentin vanderlinden"
+  description="A public subsidy platform where citizens and companies file and track requests through their whole lifecycle."
+  heading="A public subsidy platform, from request to sign-off"
+  crumb="embie"
+  tags={["next.js", "trpc", "typescript"]}
+  glance={{
+    client: "Embie — Brussels",
+    year: "2022 – 23",
+    duration: "~14 months",
+    role: "fullstack — freelance",
+  }}
+  stack={[
+    "react",
+    "next.js",
+    "typescript",
+    "trpc",
+    "graphql",
+    "state machine",
+    "docker",
+    "kubernetes",
+    "github actions",
+    "keycloak",
+  ]}
+>
+  <p>
+    For a client of <strong>Embie</strong>, I helped digitalize a subsidies process
+    that had been largely manual. The result was a brand-new web platform.
+  </p>
+  <p>
+    Citizens and companies issue subsidy requests for projects abroad and track their
+    status throughout the project lifecycle. On the other side, the client's agents
+    review requests, ask for modifications, and handle the administrative work around
+    them.
+  </p>
+  <h3>What shipped</h3>
+  <p>
+    A Next.js application with a typed tRPC API, the request lifecycle modelled as a
+    state machine, and auth handled through Keycloak — shipped and run on Kubernetes
+    with GitHub Actions.
+  </p>
+  <Callout tone="info" title="Beyond the code">
+    Alongside the build, I helped the team adopt a more agile way of working and
+    coached the more junior developers on it.
+  </Callout>
+  <h3>Result</h3>
+  <p>
+    One platform replaced a slow, paper-bound process, with a clear, auditable status
+    for every request from submission to sign-off.
+  </p>
+</CaseStudy>

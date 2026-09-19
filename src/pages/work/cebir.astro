@@ -1,0 +1,70 @@
+---
+import CaseStudy from "../../layouts/CaseStudy.astro";
+import Card from "../../components/Card.astro";
+import Callout from "../../components/Callout.astro";
+import StatCard from "../../components/StatCard.astro";
+import BarChart from "../../components/BarChart.astro";
+import ChartLegend from "../../components/ChartLegend.astro";
+
+// Working days of manual effort per reporting cycle, before vs after the
+// automation. Approximate — the real figure was "several weeks" down to minutes.
+const effort = [
+  { label: "before", value: 12 },
+  { label: "after", value: 0.02 },
+];
+---
+
+<CaseStudy
+  title="Cebir — case study — quentin vanderlinden"
+  description="Turning a multi-week statistics-and-reporting process into a few minutes with an Airflow + Polars pipeline."
+  heading="A multi-week reporting slog, down to a few minutes"
+  crumb="cebir"
+  tags={["python", "airflow", "polars"]}
+  glance={{
+    client: "Cebir — Kortenberg",
+    year: "2024 – 25",
+    duration: "~8 months",
+    role: "solo — freelance",
+  }}
+  stack={["python", "airflow", "polars", "python-docx", "openpyxl"]}
+>
+  <p>
+    <strong>Cebir</strong> builds assessment tests. Every cycle, they compute
+    statistics on test takings and turn them into detailed reports — work that used
+    to be done by hand and often took several weeks to finish.
+  </p>
+  <p>
+    The process was split across sub-processes, with a lot of copy-pasting of both
+    code and data from one step to feed the next. Every handoff was a chance for a
+    mistake, and the whole thing was slow.
+  </p>
+  <h3>What shipped</h3>
+  <p>
+    An Airflow-orchestrated pipeline that does the heavy data work in Polars and
+    generates the finished reports with python-docx and openpyxl. The manual
+    handoffs between steps are gone — the chain runs end to end on its own.
+  </p>
+  <Callout tone="accent" title="Constraint that shaped it">
+    It had to slot into how the team already worked and stay maintainable by them
+    afterwards — so the right tool for each step, and no cleverness that would need
+    me around to keep it running.
+  </Callout>
+  <h3>Result</h3>
+  <p>
+    A process that took weeks now runs in minutes, and the manual copy-pasting that
+    caused most of the errors is gone entirely.
+  </p>
+
+  <Fragment slot="rail">
+    <div style="display:flex;gap:var(--space-3)">
+      <StatCard style="flex:1" label="runtime" value="minutes" footnote="from several weeks" />
+      <StatCard style="flex:1" label="manual steps" value="0" accent />
+    </div>
+    <Card title="Manual effort per cycle" subtitle="working days · before vs after" padding={false}>
+      <div style="padding:12px">
+        <BarChart height={150} data={effort} />
+        <ChartLegend items={[{ label: "working days / cycle (approx)" }]} />
+      </div>
+    </Card>
+  </Fragment>
+</CaseStudy>

@@ -1,0 +1,42 @@
+---
+/** Select — mirrors the design system Select (native select + chevron). */
+import Icon from "./Icon.astro";
+
+interface Props {
+  options?: (string | { value: string; label: string })[];
+  size?: "sm" | "md" | "lg";
+  invalid?: boolean;
+  placeholder?: string;
+  class?: string;
+  [key: string]: unknown;
+}
+const {
+  options = [],
+  size = "md",
+  invalid = false,
+  placeholder,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const opts = options.map((o) =>
+  typeof o === "string" ? { value: o, label: o } : o,
+);
+---
+
+<span class="qv-select-wrap">
+  <select
+    class:list={[
+      "qv-input",
+      "qv-select",
+      size !== "md" ? `qv-input--${size}` : "",
+      invalid ? "qv-input--invalid" : "",
+      className,
+    ]}
+    {...rest}
+  >
+    {placeholder && <option value="">{placeholder}</option>}
+    {opts.map((o) => <option value={o.value}>{o.label}</option>)}
+  </select>
+  <span class="qv-select-wrap__chevron"><Icon name="chevron-down" size={15} /></span>
+</span>

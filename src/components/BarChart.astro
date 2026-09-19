@@ -1,0 +1,81 @@
+---
+/**
+ * BarChart — mirrors the design system BarChart. The source used a ResizeObserver
+ * for fluid width; here we render a fixed 640-unit viewBox and let it scale to the
+ * container (width:100%, height:auto), which keeps the same proportions statically.
+ * Vertical bars only (the surface the marketing site uses).
+ */
+interface Props {
+  data?: { label: string; value: number; color?: string }[];
+  height?: number;
+  color?: string;
+  showGrid?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+const {
+  data = [],
+  height = 180,
+  color = "var(--chart-1)",
+  showGrid = true,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const w = 640;
+const h = height;
+const max = Math.max(1, ...data.map((d) => Math.abs(d.value)));
+const pad = { top: 8, right: 8, bottom: 22, left: 40 };
+const iw = w - pad.left - pad.right;
+const ih = h - pad.top - pad.bottom;
+const ticks = [0, 0.5, 1];
+const band = iw / Math.max(1, data.length);
+const bw = Math.min(38, band * 0.56);
+
+const bars = data.map((d, i) => {
+  const bh = (Math.abs(d.value) / max) * ih;
+  const x = pad.left + i * band + (band - bw) / 2;
+  return {
+    x,
+    y: pad.top + ih - bh,
+    height: Math.max(2, bh),
+    fill: d.color || color,
+    label: d.label,
+    labelX: x + bw / 2,
+  };
+});
+---
+
+<svg
+  class:list={["qv-chart", className]}
+  viewBox={`0 0 ${w} ${h}`}
+  preserveAspectRatio="xMidYMid meet"
+  style="width:100%;height:auto"
+  role="img"
+  {...rest}
+>
+  {
+    showGrid &&
+      ticks.map((t) => {
+        const y = pad.top + ih - t * ih;
+        return (
+          <g>
+            <line class="qv-chart__grid" x1={pad.left} x2={w - pad.right} y1={y} y2={y} />
+            <text x={pad.left - 8} y={y + 3} text-anchor="end">
+              {Math.round(max * t)}
+            </text>
+          </g>
+        );
+      })
+  }
+  {
+    bars.map((b) => (
+      <g>
+        <rect class="qv-chart__bar" x={b.x} y={b.y} width={bw} height={b.height} fill={b.fill} rx="2" />
+        <text x={b.labelX} y={h - 6} text-anchor="middle">
+          {b.label}
+        </text>
+      </g>
+    ))
+  }
+</svg>

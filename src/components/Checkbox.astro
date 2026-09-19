@@ -1,0 +1,22 @@
+---
+/** Checkbox — mirrors the design system Checkbox. */
+import Icon from "./Icon.astro";
+
+interface Props {
+  label?: string;
+  description?: string;
+  disabled?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+const { label, description, disabled = false, class: className, ...rest } = Astro.props;
+---
+
+<label class:list={["qv-check", disabled ? "qv-check--disabled" : "", className]}>
+  <input type="checkbox" disabled={disabled} {...rest} />
+  <span class="qv-check__box"><Icon name="check" size={12} strokeWidth={3} /></span>
+  <span class="qv-check__text">
+    <span>{label}</span>
+    {description && <span class="qv-check__desc">{description}</span>}
+  </span>
+</label>

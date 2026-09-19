@@ -1,0 +1,47 @@
+/* =============================================================================
+   Page-layout classes — ported from the design system's ui_kits/site/site.css.
+   Layout-only rules; nothing here redefines a component. These encode the exact
+   marketing-site composition (hero, section rhythm, work rows, prose, footer).
+   ========================================================================== */
+.wrap{max-width:var(--container-lg);margin:0 auto;padding:0 var(--gutter)}
+.hero{padding:var(--space-24) 0 var(--space-20)}
+.hero h1{font:var(--type-display);font-size:clamp(38px,5.4vw,61px);letter-spacing:var(--tracking-display);max-width:16ch}
+/* Accent emphasis used inside page titles — the source scoped this to `.hero`,
+   but the Contact/CaseStudy titles use it outside a hero too, so it's global. */
+.em{font-style:italic;color:var(--text-accent)}
+.lede{font:var(--type-body);font-size:var(--text-lg);color:var(--text-muted);max-width:52ch;margin-top:var(--space-6)}
+.sect{padding:var(--space-16) 0;border-top:var(--rule)}
+.sect__head{display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-6);margin-bottom:var(--space-8)}
+.eyebrow{font:var(--type-eyebrow);letter-spacing:var(--tracking-caps);text-transform:uppercase;color:var(--text-subtle)}
+.work{display:flex;flex-direction:column}
+.work__row{display:grid;grid-template-columns:minmax(0,1fr) 200px 130px;gap:var(--space-6);align-items:center;padding:var(--space-5) 0;border-bottom:var(--rule);cursor:pointer;transition:var(--transition-color)}
+.work__row:hover{background:var(--surface-hover)}
+.work__title{font:var(--type-heading);color:var(--text-strong)}
+.work__desc{font:var(--type-body-sm);color:var(--text-muted);margin-top:4px}
+.work__meta{font:var(--type-mono);color:var(--text-subtle);font-size:var(--text-xs)}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-6)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-8)}
+.prose{max-width:var(--measure);font:var(--type-body);color:var(--text-body);display:flex;flex-direction:column;gap:var(--space-5)}
+.prose h3{margin-top:var(--space-6)}
+.footer{background:var(--surface-inverse);color:var(--text-inverse-muted);padding:var(--space-16) 0 var(--space-10);margin-top:var(--space-20)}
+.footer a{color:var(--cream-100);text-decoration-color:rgba(246,241,231,.35)}
+.footer a:hover{color:#fff}
+.post{display:flex;justify-content:space-between;gap:var(--space-6);padding:var(--space-4) 0;border-bottom:var(--rule);cursor:pointer}
+.post:hover .post__title{color:var(--text-accent)}
+.post__title{font:var(--type-subheading);color:var(--text-strong);transition:var(--transition-color)}
+
+/* Responsive: collapse the multi-column layouts on narrow viewports.
+   (The source kit was a fixed 1280px preview; a real site needs these.) */
+@media (max-width:820px){
+  .grid2,.grid3{grid-template-columns:minmax(0,1fr)}
+  .work__row{grid-template-columns:minmax(0,1fr) auto;gap:var(--space-3) var(--space-4)}
+  .work__row .work__stack{grid-column:1 / -1}
+  .hero{padding:var(--space-16) 0 var(--space-12)}
+}
+@media (max-width:640px){
+  /* Stat labels are nowrap by default (fine in wide cards); let them wrap in the
+     tight three-across stat rows on phones instead of forcing horizontal scroll. */
+  .qv-stat__label{white-space:normal}
+  .sect{padding:var(--space-12) 0}
+  .footer{padding:var(--space-12) 0 var(--space-8);margin-top:var(--space-16)}
+}
