@@ -7,7 +7,7 @@ export function GET(context: APIContext) {
     title: "quentin vanderlinden — writing",
     description:
       "Notes from the middle of the work — applied maths, data, and shipping fullstack software.",
-    site: context.site ?? "https://quentin.dev",
+    site: context.site ?? "https://quentinvanderlinden.dev",
     items: posts.map((p) => ({
       title: p.title,
       description: p.excerpt,

@@ -5,7 +5,7 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://quentin.dev",
+  site: "https://quentinvanderlinden.dev",
   integrations: [icon()],
   vite: {
     plugins: [tailwindcss()],

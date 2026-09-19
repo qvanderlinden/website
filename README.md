@@ -1,4 +1,4 @@
-# quentin.dev — personal site
+# quentinvanderlinden.dev — personal site
 
 Freelance portfolio site for Quentin Vanderlinden. Built with **Astro** + **Tailwind CSS v4**,
 implementing the *Quentin Vanderlinden Design System* (imported from Claude Design).
